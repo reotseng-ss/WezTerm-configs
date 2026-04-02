@@ -13,7 +13,7 @@ local options = {
 }
 
 if platform.is_win then
-   options.default_domain = 'wsl:ubuntu-bash'
+   options.default_domain = 'wsl:ubuntu-zsh'
 
    options.ssh_domains = {
       {
@@ -27,17 +27,13 @@ if platform.is_win then
 
    options.wsl_domains = {
       {
-         name = 'wsl:ubuntu-fish',
+         name = 'wsl:ubuntu-zsh',
          distribution = 'Ubuntu',
-         username = 'reot',
-         default_cwd = '/home/reot',
-         default_prog = { 'bash', '-l' },
+         default_prog = { 'zsh', '-l' },
       },
       {
          name = 'wsl:ubuntu-bash',
          distribution = 'Ubuntu',
-         username = 'reot',
-         default_cwd = '/home/reot',
          default_prog = { 'bash', '-l' },
       },
    }

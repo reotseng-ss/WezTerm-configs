@@ -12,7 +12,6 @@ if platform.is_win then
       { label = 'PowerShell Core', args = { 'powershell.exe', '-NoLogo' }, domain = { DomainName = 'local' } },
       { label = 'PowerShell Desktop', args = { 'powershell' }, domain = { DomainName = 'local' } },
       { label = 'Command Prompt', args = { 'cmd' }, domain = { DomainName = 'local' } },
-      { label = 'Nushell', args = { 'nu' }, domain = { DomainName = 'local' } },
       { label = 'Msys2', args = { 'ucrt64.cmd' }, domain = { DomainName = 'local' } },
       {
          label = 'Bash',
