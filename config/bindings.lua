@@ -61,7 +61,7 @@ local keys = {
    -- tabs: spawn+close
    { key = 't',          mods = mod.SUPER,     action = act.SpawnTab('DefaultDomain') },
    { key = 't',          mods = mod.SUPER_REV, action = act.SpawnTab({ DomainName = 'wsl:ubuntu-bash' }) },
-   { key = 'e',          mods = mod.SUPER,     action = act.SendString('nvim\n') },
+   -- { key = 'e',          mods = mod.SUPER,     action = act.SendString('nvim\n') },
    { key = 'w',          mods = mod.SUPER_REV, action = act.CloseCurrentTab({ confirm = false }) },
 
    -- tabs: navigation

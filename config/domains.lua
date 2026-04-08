@@ -13,7 +13,7 @@ local options = {
 }
 
 if platform.is_win then
-   options.default_domain = 'wsl:ubuntu-zsh'
+   options.default_domain = nil
 
    options.ssh_domains = {
       {
