@@ -6,8 +6,8 @@ local options = {
 }
 
 if platform.is_win then
-   -- Start local Windows sessions in Git Bash by default.
-   options.default_prog = { 'C:\\Program Files\\Git\\bin\\bash.exe', '-i' }
+   -- Start local Windows sessions in WSL by default.
+   options.default_prog = { 'wsl.exe' }
    options.launch_menu = {
       { label = 'PowerShell Core', args = { 'powershell.exe', '-NoLogo' }, domain = { DomainName = 'local' } },
       { label = 'PowerShell Desktop', args = { 'powershell' }, domain = { DomainName = 'local' } },
