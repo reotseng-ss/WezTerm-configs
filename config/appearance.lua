@@ -43,8 +43,7 @@ return {
    command_palette_rows = 25,
 
    -- window
-   -- on Linux, remove native desktop title bar so the look matches Windows
-   window_decorations = platform.is_linux and 'RESIZE' or 'TITLE | RESIZE',
+   window_decorations = 'TITLE',
    window_padding = {
       left = 0,
       right = 0,
