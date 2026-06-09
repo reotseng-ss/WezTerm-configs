@@ -7,31 +7,15 @@ Personal WezTerm configuration for Windows with WSL as the primary shell environ
 - Default shell domain on Windows: `wsl:ubuntu-zsh`
 - Fallback WSL shell domain: `wsl:ubuntu-bash`
 - Local launch menu entries: PowerShell, Command Prompt, MSYS2, WSL Bash, Git Bash
-- Custom key bindings for tabs, panes, resizing, background selection, and quick Neovim launch
+- Custom key bindings for tabs, panes, resizing, and background selection
 
 ## Requirements
 
 ### Windows
 
 - [WezTerm](https://wezfurlong.org/wezterm/installation.html)
-- A Nerd Font if you want icons to render correctly
+- [JetBrainsMono Nerd Font](https://github.com/DevelopersCommunity/wix-JetBrainsMonoNF) — install via `winget install -e --id DEVCOM.JetBrainsMonoNerdFont`
 - WSL with an Ubuntu distribution installed
-- Git for Windows if you want the `Git Bash` launch menu entry
-
-### WSL Packages
-
-Inside Ubuntu WSL, install the tools this config expects or benefits from:
-
-```bash
-sudo apt update
-sudo apt install -y zsh git curl neovim nnn
-```
-
-Optional but commonly useful:
-
-```bash
-sudo apt install -y unzip build-essential
-```
 
 ## Oh My Zsh Setup
 
@@ -41,12 +25,6 @@ Install Oh My Zsh inside WSL:
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-If you want `zsh` to be your default shell in WSL generally, not just inside WezTerm:
-
-```bash
-chsh -s "$(which zsh)"
-```
-
 ## Install This Config
 
 Clone this repository into your WezTerm config directory:
@@ -54,7 +32,7 @@ Clone this repository into your WezTerm config directory:
 ### Windows
 
 ```powershell
-git clone git@github.com:reotseng-ss/WezTerm-configs.git $HOME\.config\wezterm
+git clone git@github.com:reotseng-ss/WezTerm-configs.git $HOME/.config/wezterm
 ```
 
 ## Machine-Specific Settings
@@ -70,12 +48,6 @@ git clone git@github.com:reotseng-ss/WezTerm-configs.git $HOME\.config\wezterm
 - `Alt+Ctrl+t` opens a new tab in `wsl:ubuntu-bash`
 - Right-clicking the new-tab button opens the custom launch/domain selector
 
-## Helpful WSL Tooling
-
-These are not strictly required by WezTerm, but they make the terminal workflow much nicer:
-
-- `nnn` for terminal file browsing
-- `neovim` for editing
 
 ## Notes
 
