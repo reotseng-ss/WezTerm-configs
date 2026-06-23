@@ -14,7 +14,7 @@ Personal WezTerm configuration for Windows with WSL as the primary shell environ
 ### Windows
 
 - [WezTerm](https://wezfurlong.org/wezterm/installation.html)
-- [JetBrainsMono Nerd Font](https://github.com/DevelopersCommunity/wix-JetBrainsMonoNF) — install via `winget install -e --id DEVCOM.JetBrainsMonoNerdFont`
+- [JetBrainsMono Nerd Font](https://github.com/DevelopersCommunity/wix-JetBrainsMonoNF) — install via `winget install -e --id DEVCOM.JetBrainsMonoNerdFont --source winget`
 - WSL with an Ubuntu distribution installed
 
 ## Oh My Zsh Setup
