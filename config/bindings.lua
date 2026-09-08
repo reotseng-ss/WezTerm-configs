@@ -57,6 +57,9 @@ local keys = {
    { key = 'c',          mods = 'CTRL|SHIFT',  action = act.CopyTo('Clipboard') },
    { key = 'v',          mods = 'CTRL|SHIFT',  action = act.PasteFrom('Clipboard') },
 
+   -- clear screen + scrollback (like running `clear`) --
+   { key = 'l',          mods = 'CTRL',        action = act.ClearScrollback('ScrollbackAndViewport') },
+
    -- tabs --
    -- tabs: spawn+close
    { key = 't',          mods = mod.SUPER,     action = act.SpawnTab('DefaultDomain') },
