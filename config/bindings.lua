@@ -65,6 +65,15 @@ local keys = {
    { key = 't',          mods = mod.SUPER,     action = act.SpawnTab('DefaultDomain') },
    { key = 't',          mods = mod.SUPER_REV, action = act.SpawnTab({ DomainName = 'wsl:ubuntu-bash' }) },
    -- { key = 'e',          mods = mod.SUPER,     action = act.SendString('nvim\n') },
+   -- nnn file manager in a new tab w/ the preview-tui plugin (image previews) started
+   {
+      key = 'y',
+      mods = mod.SUPER,
+      action = act.SpawnCommandInNewTab({
+         args = { 'zsh', '-ic', 'nnn -P p' },
+         domain = 'CurrentPaneDomain',
+      }),
+   },
    { key = 'w',          mods = mod.SUPER_REV, action = act.CloseCurrentTab({ confirm = false }) },
 
    -- tabs: navigation

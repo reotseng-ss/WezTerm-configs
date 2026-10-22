@@ -46,6 +46,7 @@ git clone git@github.com:reotseng-ss/WezTerm-configs.git $HOME/.config/wezterm
 - `Alt+e` sends `nvim` in the current shell
 - `Alt+t` opens a new tab in the default domain
 - `Alt+Ctrl+t` opens a new tab in `wsl:ubuntu-bash`
+- `Alt+y` opens `nnn` in a new tab with the [preview-tui](https://github.com/jarun/nnn/blob/master/plugins/preview-tui) plugin running (images render via `wezterm imgcat`); requires `nnn`, the plugin in `~/.config/nnn/plugins`, and `NNN_FIFO`/`NNN_PLUG='p:preview-tui'` exported in `~/.zshrc`
 - Right-clicking the new-tab button opens the custom launch/domain selector
 
 
