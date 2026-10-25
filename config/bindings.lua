@@ -58,7 +58,14 @@ local keys = {
    { key = 'v',          mods = 'CTRL|SHIFT',  action = act.PasteFrom('Clipboard') },
 
    -- clear screen + scrollback (like running `clear`) --
-   { key = 'l',          mods = 'CTRL',        action = act.ClearScrollback('ScrollbackAndViewport') },
+   {
+      key = 'l',
+      mods = 'CTRL',
+      action = act.Multiple({
+         act.ClearScrollback('ScrollbackAndViewport'),
+         act.SendKey({ key = 'l', mods = 'CTRL' }),
+      }),
+   },
 
    -- tabs --
    -- tabs: spawn+close
