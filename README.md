@@ -17,14 +17,6 @@ Personal WezTerm configuration for Windows with WSL as the primary shell environ
 - [JetBrainsMono Nerd Font](https://github.com/DevelopersCommunity/wix-JetBrainsMonoNF) — install via `winget install -e --id DEVCOM.JetBrainsMonoNerdFont --source winget`
 - WSL with an Ubuntu distribution installed
 
-## Oh My Zsh Setup
-
-Install Oh My Zsh inside WSL:
-
-```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-
 ## Install This Config
 
 Clone this repository into your WezTerm config directory:
@@ -33,6 +25,12 @@ Clone this repository into your WezTerm config directory:
 
 ```powershell
 git clone git@github.com:reotseng-ss/WezTerm-configs.git $HOME/.config/wezterm
+```
+
+Then run the WSL setup (zsh, Oh My Zsh, nnn with previews) inside WSL:
+
+```bash
+bash /mnt/c/Users/<windows-user>/.config/wezterm/wsl/setup.sh
 ```
 
 ## Machine-Specific Settings
@@ -46,7 +44,7 @@ git clone git@github.com:reotseng-ss/WezTerm-configs.git $HOME/.config/wezterm
 - `Alt+e` sends `nvim` in the current shell
 - `Alt+t` opens a new tab in the default domain
 - `Alt+Ctrl+t` opens a new tab in `wsl:ubuntu-bash`
-- `Alt+y` opens `nnn` in a new tab with the [preview-tui](https://github.com/jarun/nnn/blob/master/plugins/preview-tui) plugin running (images render via `wezterm imgcat`); requires `nnn`, the plugin in `~/.config/nnn/plugins`, and `NNN_FIFO`/`NNN_PLUG='p:preview-tui'` exported in `~/.zshrc`
+- `Alt+y` opens `nnn` in a new tab with the [preview-tui](https://github.com/jarun/nnn/blob/master/plugins/preview-tui) plugin (needs `wsl/setup.sh`)
 - Right-clicking the new-tab button opens the custom launch/domain selector
 
 
