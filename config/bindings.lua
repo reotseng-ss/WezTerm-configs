@@ -76,10 +76,32 @@ local keys = {
    {
       key = 'y',
       mods = mod.SUPER,
-      action = act.SpawnCommandInNewTab({
-         args = { 'zsh', '-ic', 'nnn -P p' },
-         domain = 'CurrentPaneDomain',
-      }),
+      action = wezterm.action_callback(function(window, pane)
+         if not platform.is_win then
+            window:perform_action(
+               act.SpawnCommandInNewTab({ args = { 'zsh', '-ic', 'nnn -P p' }, domain = 'CurrentPaneDomain' }),
+               pane
+            )
+            return
+         end
+         -- wezterm mangles linux cwds for WSL, so cd via wsl.exe
+         local dir = '~'
+         local url = pane:get_current_working_dir()
+         if url then
+            local path = type(url) == 'userdata' and url.file_path or tostring(url):gsub('^file://[^/]*', '')
+            if path:match('^/') and not path:match('^/%a:') then
+               dir = path
+            end
+         end
+         window:perform_action(
+            act.SpawnCommandInNewTab({
+               args = { 'wsl.exe', '-d', 'Ubuntu', '--cd', dir, '-e', 'zsh', '-ic', 'nnn -P p' },
+               cwd = wezterm.home_dir,
+               domain = { DomainName = 'local' },
+            }),
+            pane
+         )
+      end),
    },
    { key = 'w',          mods = mod.SUPER_REV, action = act.CloseCurrentTab({ confirm = false }) },
 

@@ -8,6 +8,10 @@ local options = {
 if platform.is_win then
    -- Start local Windows sessions in WSL by default.
    options.default_prog = { 'wsl.exe' }
+   -- pass pane vars into WSL so `wezterm cli` works there
+   options.set_environment_variables = {
+      WSLENV = 'TERM_PROGRAM:TERM_PROGRAM_VERSION:WEZTERM_PANE:WEZTERM_UNIX_SOCKET/p',
+   }
    options.launch_menu = {
       { label = 'PowerShell Core', args = { 'powershell.exe', '-NoLogo' }, domain = { DomainName = 'local' } },
       { label = 'PowerShell Desktop', args = { 'powershell' }, domain = { DomainName = 'local' } },
