@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# wezterm.exe wrapper: runs preview splits via wsl.exe with the nnn env
+wez="/mnt/c/Program Files/WezTerm/wezterm.exe"
+[ "$1" = cli ] && [ "$2" = split-pane ] || exec "$wez" "$@"
+shift 2
+opts=() cwd=$PWD
+while [ $# -gt 0 ]; do
+    case $1 in
+        --cwd) cwd=$2; shift 2 ;;
+        --cwd=*) cwd=${1#--cwd=}; shift ;;
+        --percent|--cells|--pane-id|--move-pane-id) opts+=("$1" "$2"); shift 2 ;;
+        --) shift; break ;;
+        -*) opts+=("$1"); shift ;;
+        *) break ;;
+    esac
+done
+vars=()
+while IFS= read -r -d "" kv; do
+    case $kv in NNN_*|PREVIEW_MODE=*|FIFOPID=*|FIFOPATH=*|PREVIEWPID=*|CURSEL=*|FIFO_UEBERZUG=*|POSOFFSET=*|QLPATH=*|PATH=*|TERM_PROGRAM=*|WEZTERM_*|LS_COLORS=*) vars+=("$kv") ;; esac
+done < <(env -0)
+exec "$wez" cli split-pane --cwd "C:\\" "${opts[@]}" -- \
+    wsl.exe -d "$WSL_DISTRO_NAME" --cd "$cwd" -e env "${vars[@]}" "$@"

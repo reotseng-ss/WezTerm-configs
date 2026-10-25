@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# full-res image preview for nnn
+[ -f "$1" ] || exit 1
+cols=$(tput cols) rows=$(( $(tput lines) - 1 ))
+printf "\033]1337;File=inline=1;size=%d;width=%d;height=%d;preserveAspectRatio=1:" "$(stat -c %s "$1")" "$cols" "$rows"
+base64 -w0 "$1"
+printf "\a"
