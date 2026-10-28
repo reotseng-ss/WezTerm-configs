@@ -79,7 +79,7 @@ local keys = {
       action = wezterm.action_callback(function(window, pane)
          if not platform.is_win then
             window:perform_action(
-               act.SpawnCommandInNewTab({ args = { 'zsh', '-ic', 'nnn -P p' }, domain = 'CurrentPaneDomain' }),
+               act.SpawnCommandInNewTab({ args = { 'zsh', '-ic', 'nnn -P p; exec zsh' }, domain = 'CurrentPaneDomain' }),
                pane
             )
             return
@@ -95,7 +95,7 @@ local keys = {
          end
          window:perform_action(
             act.SpawnCommandInNewTab({
-               args = { 'wsl.exe', '-d', 'Ubuntu', '--cd', dir, '-e', 'zsh', '-ic', 'nnn -P p' },
+               args = { 'wsl.exe', '-d', 'Ubuntu', '--cd', dir, '-e', 'zsh', '-ic', 'nnn -P p; exec zsh' },
                cwd = wezterm.home_dir,
                domain = { DomainName = 'local' },
             }),

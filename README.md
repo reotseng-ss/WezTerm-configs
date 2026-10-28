@@ -44,7 +44,7 @@ bash /mnt/c/Users/<windows-user>/.config/wezterm/wsl/setup.sh
 - `Alt+e` sends `nvim` in the current shell
 - `Alt+t` opens a new tab in the default domain
 - `Alt+Ctrl+t` opens a new tab in `wsl:ubuntu-bash`
-- `Alt+y` opens `nnn` in a new tab with the [preview-tui](https://github.com/jarun/nnn/blob/master/plugins/preview-tui) plugin (needs `wsl/setup.sh`)
+- `Alt+y` opens `nnn` in a new tab with the [preview-tui](https://github.com/jarun/nnn/blob/master/plugins/preview-tui) plugin (needs `wsl/setup.sh`); quit with `q` to land in a shell at nnn's last directory
 - Right-clicking the new-tab button opens the custom launch/domain selector
 
 

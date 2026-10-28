@@ -33,7 +33,17 @@ export NNN_PLUG="p:preview-tui"
 export NNN_OPENER=wsl-open  # open files with Windows default apps
 export NNN_PREVIEWIMGPROG=nnn-imgcat
 export LS_COLORS="${LS_COLORS}:ow=1;34:tw=1;34:"
-alias nnn="nnn -P p"
+EOF
+
+grep -q '^nnn()' ~/.zshrc || cat >> ~/.zshrc <<'EOF'
+
+# nnn that cds to its last dir on quit (q)
+export NNN_TMPFILE="$HOME/.config/nnn/.lastd"
+unalias nnn 2>/dev/null
+nnn() {
+  command nnn "$@"
+  [ -f "$NNN_TMPFILE" ] && { . "$NNN_TMPFILE"; rm -f -- "$NNN_TMPFILE"; }
+}
 EOF
 
 echo "Done. Restart WezTerm."
