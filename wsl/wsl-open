@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Open files with their Windows default app (stand-in for wslu's wslview,
+# which Ubuntu dropped in 26.04).
+for f in "$@"; do
+  explorer.exe "$(wslpath -w "$f")" || true  # explorer.exe exits 1 even on success
+done
