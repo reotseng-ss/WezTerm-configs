@@ -46,4 +46,16 @@ nnn() {
 }
 EOF
 
+# don't exit the shell (and close the tab) on Ctrl+D
+grep -q _ctrl_d ~/.zshrc || cat >> ~/.zshrc <<'EOF'
+
+# Ctrl+D: delete char as usual, but do nothing (no exit, no message) on an empty line
+# (IGNORE_EOF is required; with a function widget bound to ^D it doesn't print its warning)
+_ctrl_d() { [[ -n $BUFFER ]] && zle delete-char-or-list }
+setopt IGNORE_EOF
+zle -N _ctrl_d
+bindkey '^D' _ctrl_d
+EOF
+grep -q ignoreeof ~/.bashrc || printf '\nset -o ignoreeof\n' >> ~/.bashrc
+
 echo "Done. Restart WezTerm."
