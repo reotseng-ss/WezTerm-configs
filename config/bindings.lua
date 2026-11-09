@@ -13,6 +13,33 @@ elseif platform.is_win or platform.is_linux then
    mod.SUPER_REV = 'ALT|CTRL'
 end
 
+-- Linux cwd of a pane running WSL via wsl.exe (reported by the shell), or nil.
+-- Needed on Windows because wezterm mangles linux cwds when spawning wsl.exe,
+-- so new panes/tabs cd via `wsl.exe --cd <dir>` instead.
+local function wsl_cwd(pane)
+   local url = pane:get_current_working_dir()
+   if not url then
+      return nil
+   end
+   local path = type(url) == 'userdata' and url.file_path or tostring(url):gsub('^file://[^/]*', '')
+   if path:match('^/') and not path:match('^/%a:') then
+      return path
+   end
+end
+
+-- split the current pane, keeping its cwd (incl. WSL panes on Windows)
+local function split(direction)
+   return wezterm.action_callback(function(_window, pane)
+      -- only panes started via wsl.exe in the local domain; wsl:* domains handle cwd themselves
+      local dir = platform.is_win and pane:get_domain_name() == 'local' and wsl_cwd(pane)
+      if dir then
+         pane:split({ direction = direction, args = { 'wsl.exe', '--cd', dir }, cwd = wezterm.home_dir })
+      else
+         pane:split({ direction = direction, domain = 'CurrentPaneDomain' })
+      end
+   end)
+end
+
 -- stylua: ignore
 local keys = {
    -- misc/useful --
@@ -84,15 +111,7 @@ local keys = {
             )
             return
          end
-         -- wezterm mangles linux cwds for WSL, so cd via wsl.exe
-         local dir = '~'
-         local url = pane:get_current_working_dir()
-         if url then
-            local path = type(url) == 'userdata' and url.file_path or tostring(url):gsub('^file://[^/]*', '')
-            if path:match('^/') and not path:match('^/%a:') then
-               dir = path
-            end
-         end
+         local dir = wsl_cwd(pane) or '~'
          window:perform_action(
             act.SpawnCommandInNewTab({
                args = { 'wsl.exe', '-d', 'Ubuntu', '--cd', dir, '-e', 'zsh', '-ic', 'nnn -P p; exec zsh' },
@@ -211,12 +230,12 @@ local keys = {
    {
       key = [[\]],
       mods = mod.SUPER,
-      action = act.SplitVertical({ domain = 'CurrentPaneDomain' }),
+      action = split('Bottom'),
    },
    {
       key = [[\]],
       mods = mod.SUPER_REV,
-      action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }),
+      action = split('Right'),
    },
 
    -- panes: zoom+close pane
