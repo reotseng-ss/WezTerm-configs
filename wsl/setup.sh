@@ -5,7 +5,8 @@ dir=$(cd "$(dirname "$0")" && pwd)
 v=5.3 # nnn version
 
 sudo apt-get update
-sudo apt-get install -y zsh curl imagemagick tree
+sudo apt-get install -y zsh curl imagemagick tree fzf ripgrep \
+  neovim neovim-treesitter neovim-tokyonight tree-sitter-cli gcc
 
 # oh my zsh (also makes zsh the login shell)
 [ -d ~/.oh-my-zsh ] || RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -44,6 +45,43 @@ nnn() {
   command nnn "$@"
   [ -f "$NNN_TMPFILE" ] && { . "$NNN_TMPFILE"; rm -f -- "$NNN_TMPFILE"; }
 }
+EOF
+
+# editor (nnn's `e` key, git, etc.)
+grep -q 'EDITOR=nvim' ~/.zshrc || cat >> ~/.zshrc <<'EOF'
+
+# editor (nnn: `e` opens in nvim, Enter/l still uses NNN_OPENER)
+export VISUAL=nvim EDITOR=nvim
+EOF
+
+# neovim: tree-sitter syntax highlighting + tokyonight colors (both from apt).
+# Only writes init.lua if you don't have one yet.
+mkdir -p ~/.config/nvim
+[ -f ~/.config/nvim/init.lua ] || cat > ~/.config/nvim/init.lua <<'EOF'
+vim.o.termguicolors = true
+vim.o.number = true
+vim.cmd.colorscheme('tokyonight')
+
+-- tree-sitter highlighting for any file whose language parser is installed
+-- (add more with :TSInstall <language>)
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(args) pcall(vim.treesitter.start, args.buf) end,
+})
+EOF
+# apt doesn't package the language parsers; nvim-treesitter downloads + compiles them
+nvim --headless -c "lua require('nvim-treesitter').install({
+  'bash', 'c', 'cpp', 'css', 'diff', 'dockerfile', 'gitcommit', 'go', 'html',
+  'javascript', 'json', 'lua', 'make', 'markdown', 'markdown_inline', 'python',
+  'query', 'regex', 'rust', 'sql', 'toml', 'tsx', 'typescript', 'vim', 'vimdoc', 'yaml',
+}):wait(600000)" -c qa
+
+# fzf: list files via ripgrep so .gitignore is respected (hidden files included, .git skipped)
+grep -q FZF_DEFAULT_COMMAND ~/.zshrc || cat >> ~/.zshrc <<'EOF'
+
+# fzf (Ctrl+T files, Ctrl+R history, Alt+C cd), file list from rg to respect .gitignore
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+source <(fzf --zsh)
 EOF
 
 # don't exit the shell (and close the tab) on Ctrl+D
