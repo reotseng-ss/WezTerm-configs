@@ -6,7 +6,7 @@ v=5.3 # nnn version
 
 sudo apt-get update
 sudo apt-get install -y zsh curl imagemagick tree fzf ripgrep \
-  neovim neovim-treesitter neovim-tokyonight tree-sitter-cli gcc
+  neovim neovim-treesitter neovim-tokyonight tree-sitter-cli gcc libc6-dev
 
 # oh my zsh (also makes zsh the login shell)
 [ -d ~/.oh-my-zsh ] || RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
